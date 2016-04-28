@@ -479,33 +479,33 @@ module rrtmg_sw_rad
 
     ! to_save_var_swuflx_ctang_2015_11_25
     !write(10+myid) '##########jjj############'
-    write(100+myid,'(I10)') nlay
-    write(200+myid,'(I10)') ncol
+    !write(100+myid,'(I10)') nlay
+    !write(200+myid,'(I10)') ncol
     !write(300+myid,'(I10)') kzp1
-    !do i = 1 , kzp1
-    do i = 1 , nlay+1
-      !do iplon = 1, ncol
-      write(1001+myid,'(f11.7)') swdflx(10000,i)
-      write(2001+myid,'(f11.7)') swuflx(10000,i)
-      write(3001+myid,'(f11.7)') swhr(10000,i)
-      write(4001+myid,'(f11.7)') swdflxc(10000,i)
-      write(5001+myid,'(f11.7)') swuflxc(10000,i)
-      write(6001+myid,'(f11.7)') swhrc(10000,i)
-      !end do
-    end do
-    flush(10+myid)
-    flush(100+myid)
-    flush(200+myid)
-    !flush(300+myid)
-    flush(1001+myid)
-    flush(2001+myid)
-    flush(3001+myid)
-    flush(4001+myid)
-    flush(5001+myid)
-    flush(6001+myid)
+    !!do i = 1 , kzp1
+    !do i = 1 , nlay+1
+      !!do iplon = 1, ncol
+      !write(1001+myid,'(f11.7)') swdflx(10000,i)
+      !write(2001+myid,'(f11.7)') swuflx(10000,i)
+      !write(3001+myid,'(f11.7)') swhr(10000,i)
+      !write(4001+myid,'(f11.7)') swdflxc(10000,i)
+      !write(5001+myid,'(f11.7)') swuflxc(10000,i)
+      !write(6001+myid,'(f11.7)') swhrc(10000,i)
+      !!end do
+    !end do
+    !flush(10+myid)
+    !flush(100+myid)
+    !flush(200+myid)
+    !!flush(300+myid)
+    !flush(1001+myid)
+    !flush(2001+myid)
+    !flush(3001+myid)
+    !flush(4001+myid)
+    !flush(5001+myid)
+    !flush(6001+myid)
 
-    ! xxxx1 for test 
-    !stop
+    !! xxxx1 for test 
+    !!stop
 
 
 
