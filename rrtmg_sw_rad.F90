@@ -481,27 +481,31 @@ module rrtmg_sw_rad
     !write(10+myid) '##########jjj############'
     write(100+myid,'(I10)') nlay
     write(200+myid,'(I10)') ncol
+    !write(300+myid,'(I10)') kzp1
+    !do i = 1 , kzp1
     do i = 1 , nlay+1
       !do iplon = 1, ncol
-      write(1000+myid,'(f11.7)') swuflx(10000,i)
-      write(2000+myid,'(f11.7)') swuflxc(10000,i)
-      write(3000+myid,'(f11.7)') swdflx(10000,i)
-      write(4000+myid,'(f11.7)') swdflxc(10000,i)
-      write(5000+myid,'(f11.7)') swhr(10000,i)
-      write(6000+myid,'(f11.7)') swhrc(10000,i)
+      write(1001+myid,'(f11.7)') swdflx(10000,i)
+      write(2001+myid,'(f11.7)') swuflx(10000,i)
+      write(3001+myid,'(f11.7)') swhr(10000,i)
+      write(4001+myid,'(f11.7)') swdflxc(10000,i)
+      write(5001+myid,'(f11.7)') swuflxc(10000,i)
+      write(6001+myid,'(f11.7)') swhrc(10000,i)
       !end do
     end do
     flush(10+myid)
     flush(100+myid)
     flush(200+myid)
-    flush(1000+myid)
-    flush(2000+myid)
-    flush(3000+myid)
-    flush(4000+myid)
-    flush(5000+myid)
-    flush(6000+myid)
+    !flush(300+myid)
+    flush(1001+myid)
+    flush(2001+myid)
+    flush(3001+myid)
+    flush(4001+myid)
+    flush(5001+myid)
+    flush(6001+myid)
 
-    !!stop
+    ! xxxx1 for test 
+    !stop
 
 
 
@@ -856,26 +860,30 @@ module rrtmg_sw_rad
     end do
 
     ! to_save_var_swuflx_ctang_2015_11_25
-    write(10+myid) '#########kkk#############'
+
+
+    ! sw fluxes in number lt 100, lw flux gt 1000, in order dn up hr.
+    ! rrtm_sw end with 1 e.g. fort.*1, ccm end with 0, e.g. fort.*0
+    write(111+myid) '#########kkk#############'
     do i = 1 , nlay+1
       !do iplon = 1, ncol
-      write(10000+myid,'(f11.7)') swuflx(10000,i)
-      write(20000+myid,'(f11.7)') swuflxc(10000,i)
-      write(30000+myid,'(f11.7)') swdflx(10000,i)
-      write(40000+myid,'(f11.7)') swdflxc(10000,i)
-      write(50000+myid,'(f11.7)') swhr(10000,i)
-      write(60000+myid,'(f11.7)') swhrc(10000,i)
+      write(11+myid,'(f11.7)') swdflx(10000,i)
+      write(21+myid,'(f11.7)') swuflx(10000,i)
+      write(31+myid,'(f11.7)') swhr(10000,i)
+      write(41+myid,'(f11.7)') swdflxc(10000,i)
+      write(51+myid,'(f11.7)') swuflxc(10000,i)
+      write(61+myid,'(f11.7)') swhrc(10000,i)
       !end do
     end do
-    flush(10+myid)
-    flush(10000+myid)
-    flush(20000+myid)
-    flush(30000+myid)
-    flush(40000+myid)
-    flush(50000+myid)
-    flush(60000+myid)
+    flush(111+myid)
+    flush(11+myid)
+    flush(21+myid)
+    flush(31+myid)
+    flush(41+myid)
+    flush(51+myid)
+    flush(61+myid)
 
-    !stop
+    stop
       end subroutine rrtmg_sw
   !
   !  Purpose: Function to calculate the correction factor of Earth's orbit

@@ -132,6 +132,7 @@ module mod_rrtmg_driver
       if ( ptop*d_10 > stdplevh(k) ) exit
     end do
     kth = kz + n_prehlev - kclimh - 1
+!Main/radlib/mod_rad_atmosphere.F90:47:  integer(ik4) , public , parameter :: n_preflev  = 31
     do k = 1 , n_preflev
       kclimf = k
       if ( ptop*d_10 > stdplevf(k) ) exit

@@ -34,6 +34,9 @@ module mod_rad_radiation
   use mod_rad_scenarios
   use mod_rad_aerosol
 
+      ! to_save_var_swuflx_ctang_2015_11_25
+      use mod_dynparam, only : myid
+
   implicit none
 
   private
@@ -1773,6 +1776,50 @@ module mod_rad_radiation
     do n = n1 , n2
       fsds(n) = fswdn(n,kzp1)
     end do
+
+    !#--------------------------------------------------- 
+    ! fsds     - Flux Shortwave Downwelling Surface
+    ! fswup    - Spectrally summed up flux
+    ! fswdn    - Spectrally summed down flux
+
+    ! ----- to be Output -----
+
+    !real(kind=rb), intent(out) :: swuflx(:,:)       ! Total sky shortwave upward flux (W/m2)
+    !    Dimensions: (ncol,nlay+1)
+    !real(kind=rb), intent(out) :: swdflx(:,:)       ! Total sky shortwave downward flux (W/m2)
+    !    Dimensions: (ncol,nlay+1)
+    !real(kind=rb), intent(out) :: swhr(:,:)         ! Total sky shortwave radiative heating rate (K/d)
+    !    Dimensions: (ncol,nlay)
+    !real(kind=rb), intent(out) :: swuflxc(:,:)      ! Clear sky shortwave upward flux (W/m2)
+    !    Dimensions: (ncol,nlay+1)
+    !real(kind=rb), intent(out) :: swdflxc(:,:)      ! Clear sky shortwave downward flux (W/m2)
+    !    Dimensions: (ncol,nlay+1)
+    !real(kind=rb), intent(out) :: swhrc(:,:)        ! Clear sky shortwave radiative heating rate (K/d)
+    !    Dimensions: (ncol,nlay)
+    !#--------------------------------------------------- 
+
+    ! to_save_var_swuflx_ctang_2015_11_25
+    write(100+myid,'(I10)') n
+    write(200+myid,'(I10)') kz
+    write(300+myid,'(I10)') kzp1
+    do k = 0 , kzp1
+    ! ctang: from top down : all sky: 
+    ! sw fluxes in number lt 100, lw flux gt 1000, in order dn up hr.
+      write(10+myid,'(f15.7)') fswdn(10000,k)
+      write(20+myid,'(f15.7)') fswup(10000,k)
+      write(30+myid,'(f15.7)') qrs(10000,k)
+      !end do
+    end do
+    ! n = 19228 
+    ! kzp1 = 19
+    flush(100+myid)
+    flush(200+myid)
+    flush(300+myid)
+
+    flush(10+myid)
+    flush(20+myid)
+    flush(30+myid)
+
 #ifdef DEBUG
     call time_end(subroutine_name,indx)
 #endif
@@ -2257,14 +2304,59 @@ module mod_rad_radiation
       flnt(n) = ful(n,1) - fdl(n,1)
     end do
     !
-    ! Computation of longwave heating (k per sec)
-    !
-    do k = 1 , kz
+    !! Computation of longwave heating (k per sec)
+    !!
+    !do k = 1 , kz
+      !do n = n1 , n2
+        !qrl(n,k) = (ful(n,k)-fdl(n,k)-ful(n,k+1)+fdl(n,k+1))*gocp / &
+                    !((pint(n,k)-pint(n,k+1)))
+      !end do
+    !end do
+
+    ! ctang: Computation of longwave heating (k per sec)
+    ! to save qrl I calculate from 0 to kzp1 instead of calculate from 1 to kz.
+    do k = 0 , kzp1
       do n = n1 , n2
         qrl(n,k) = (ful(n,k)-fdl(n,k)-ful(n,k+1)+fdl(n,k+1))*gocp / &
                     ((pint(n,k)-pint(n,k+1)))
       end do
     end do
+
+    ! to_save_var_swuflx_ctang_2015_11_25
+    do k = 0 , kzp1
+    ! ctang: all sky: 
+    ! sw fluxes in number lt 100, lw flux gt 1000, in order dn up hr.
+    ! rrtm_sw end with 1 e.g. fort.*1, ccm end with 0, e.g. fort.*0
+      write(1000+myid,'(f15.7)') fdl(10000,k)
+      write(2000+myid,'(f15.7)') ful(10000,k)
+      write(3000+myid,'(f15.7)') qrl(10000,k)
+    end do
+
+
+    ! ctang: Computation of longwave heating (k per sec) using clearsky flux
+    !
+    do k = 1 , kz
+      do n = n1 , n2
+        qrl(n,k) = (fsul(n,k)-fsdl(n,k)-fsul(n,k+1)+fsdl(n,k+1))*gocp / &
+                    ((pint(n,k)-pint(n,k+1)))
+      end do
+    end do
+
+    do k = 0 , kzp1
+    ! ctang: clear sky:
+      write(4000+myid,'(f15.7)') fsdl(10000,k)
+      write(5000+myid,'(f15.7)') fsul(10000,k)
+      write(6000+myid,'(f15.7)') qrl(10000,k)
+    end do
+
+    flush(1000+myid)
+    flush(2000+myid)
+    flush(3000+myid)
+    flush(4000+myid)
+    flush(5000+myid)
+    flush(6000+myid)
+
+    stop
 #ifdef DEBUG
     call time_end(subroutine_name,indx)
 #endif
