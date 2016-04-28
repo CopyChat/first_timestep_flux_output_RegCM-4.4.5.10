@@ -1805,6 +1805,7 @@ module mod_rad_radiation
     do k = 0 , kzp1
     ! ctang: from top down : all sky: 
     ! sw fluxes in number lt 100, lw flux gt 1000, in order dn up hr.
+    ! rrtm_sw end with 1 e.g. fort.*1, ccm end with 0, e.g. fort.*0
       write(10+myid,'(f15.7)') fswdn(10000,k)
       write(20+myid,'(f15.7)') fswup(10000,k)
       write(30+myid,'(f15.7)') qrs(10000,k)
