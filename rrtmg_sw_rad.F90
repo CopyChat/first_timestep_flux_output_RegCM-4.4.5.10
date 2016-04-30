@@ -864,7 +864,7 @@ module rrtmg_sw_rad
 
     ! sw fluxes in number lt 100, lw flux gt 1000, in order dn up hr.
     ! rrtm_sw end with 1 e.g. fort.*1, ccm end with 0, e.g. fort.*0
-    write(111+myid) '#########kkk#############'
+    !write(111+myid) '#########kkk#############'
     do i = 1 , nlay+1
       !do iplon = 1, ncol
       write(11+myid,'(f11.7)') swdflx(10000,i)
@@ -875,7 +875,7 @@ module rrtmg_sw_rad
       write(61+myid,'(f11.7)') swhrc(10000,i)
       !end do
     end do
-    flush(111+myid)
+    !flush(111+myid)
     flush(11+myid)
     flush(21+myid)
     flush(31+myid)
