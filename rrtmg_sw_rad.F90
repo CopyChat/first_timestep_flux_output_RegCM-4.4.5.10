@@ -867,12 +867,12 @@ module rrtmg_sw_rad
     !write(111+myid) '#########kkk#############'
     do i = 1 , nlay+1
       !do iplon = 1, ncol
-      write(11+myid,'(f11.7)') swdflx(10000,i)
-      write(21+myid,'(f11.7)') swuflx(10000,i)
-      write(31+myid,'(f11.7)') swhr(10000,i)
-      write(41+myid,'(f11.7)') swdflxc(10000,i)
-      write(51+myid,'(f11.7)') swuflxc(10000,i)
-      write(61+myid,'(f11.7)') swhrc(10000,i)
+      write(11+myid,'(f15.7)') swdflx(10000,i)
+      write(21+myid,'(f15.7)') swuflx(10000,i)
+      write(31+myid,'(f15.7)') swhr(10000,i)
+      write(41+myid,'(f15.7)') swdflxc(10000,i)
+      write(51+myid,'(f15.7)') swuflxc(10000,i)
+      write(61+myid,'(f15.7)') swhrc(10000,i)
       !end do
     end do
     !flush(111+myid)
